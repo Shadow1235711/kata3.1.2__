@@ -4,10 +4,15 @@ import cata311.demo311.model.User;
 import cata311.demo311.service.RoleService;
 import cata311.demo311.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -33,7 +38,10 @@ public class AdminController {
     }
 
     @PostMapping("/create")
-    public String creatUser(@ModelAttribute("user") User user) {
+    public String creatUser(@Valid @RequestBody @ModelAttribute("user") User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "newUser";
+        }
         userService.updateUser(user.getId(), user);
         return "redirect:users";
     }
@@ -59,8 +67,10 @@ public class AdminController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user") User user, Model model) {
-
+    public String updateUser(@Valid @RequestBody @ModelAttribute("user") User user, Model model, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "editUser";
+        }
         userService.updateUser(user.getId(), user);
         return "redirect:/admin/users";
     }

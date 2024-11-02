@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,9 +17,11 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @NotEmpty(message = "Имя не должно быть пустым")
+    @Size(min = 5, max = 20, message = "Имя должно быть от 5 до 20 символов")
     private String name;
-
+    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{1,3}",message = "почта должна соответствовать шаблону ххх@mail.ru")
+    @Size(min = 5, max = 20, message = "почта должна быть от 5 до 20 символов")
     private String email;
 
     private String password;

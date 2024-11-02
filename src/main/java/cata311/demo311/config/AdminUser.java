@@ -28,16 +28,16 @@ public class AdminUser implements InitializingBean {
         roleService.saveRole(roleUser);
 
         User Admin = new User();
-        Admin.setName("admin");
-        Admin.setPassword("admin");
+        Admin.setName("admin123");
+        Admin.setPassword("admin123");
         Admin.setEmail("admin@admin.com");
         Admin.setRole(roleService.findRoleById(Long.valueOf(1)));
         Admin.setRole(roleService.findRoleById(Long.valueOf(2)));
 
 
         User User = new User();
-        User.setName("user");
-        User.setPassword("user");
+        User.setName("user123");
+        User.setPassword("user123");
         User.setEmail("user@user.com");
         User.setRole(roleService.findRoleById(Long.valueOf(2)));
 
